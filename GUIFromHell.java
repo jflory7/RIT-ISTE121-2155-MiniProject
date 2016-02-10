@@ -493,7 +493,7 @@ public class GUIFromHell extends JFrame implements ActionListener, MouseListener
    }
       
    /*
-   * Sets background color to yellow after slider is released
+   * Sets background color to yellow after slider is released change
    */
    public void mouseReleased(MouseEvent e) {
      getContentPane().setBackground(Color.YELLOW);
