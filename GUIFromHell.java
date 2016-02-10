@@ -20,7 +20,7 @@ public class GUIFromHell extends JFrame implements ActionListener, MouseListener
    private JTextField jtfAge;
    //Array of names for each letter of the alphabet
    private String[] names;
-   //Solor sliders and button
+   //Solor sliders and button and something else
    private JLabel jlRed;
    private JLabel jlGreen;
    private JLabel jlBlue;
