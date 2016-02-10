@@ -199,7 +199,7 @@ public class GUIFromHell extends JFrame implements ActionListener, MouseListener
          jlRed.setHorizontalAlignment(JLabel.CENTER);
          jpSliders.add(jlRed);
          
-         //Make red slider
+         //Make red slider changes
          jsRed = new JSlider(JSlider.HORIZONTAL, 0, 255, 128);
          jsRed.addMouseListener(this);
          jsRed.setMinorTickSpacing(16);
