@@ -1,10 +1,22 @@
+/*
+ * Copyright (c) 2016 Justin W. Flory, Timothy Endersby
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 import java.awt.*;
 import javax.swing.*;
 
-/*
-* Mini Project 1 - Othello
-* Timothy Endersby and Justin ory
-* ISTE 121.01
+/**
+ * Othello.java
+ *
+ * Mini Project 1, ISTE-121.01: Othello
+ *
+ * @author Timothy Endersby
+ * @author Justin W. Flory
+ * @version 2016.02.15.v1
  */
 public class Othello extends JFrame {
     private JMenuItem jmiNewGame;
