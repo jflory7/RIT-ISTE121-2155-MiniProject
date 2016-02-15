@@ -5,7 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
+import javax.swing.*;
+import java.awt.*;
 /**
  * Othello.java
  *
@@ -28,10 +29,10 @@ public class Othello extends JFrame {
                 jmFile.add(jmiNewGame);
             menuBar.add(jmFile);
         add(menuBar, BorderLayout.NORTH);
-        
-        //add(new GameBoard(), BorderLayout.CENTER);
-        //add(new ScoreBoard(), BorderLayout.EAST);
-        
+
+        add(new GameBoard(), BorderLayout.CENTER);
+        add(new Scoreboard(), BorderLayout.EAST);
+
         pack();
         setTitle("Othello");
         setLocationRelativeTo(null);
