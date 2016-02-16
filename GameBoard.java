@@ -19,7 +19,7 @@ public class GameBoard extends JPanel {
         setup();
     }
 
-    private void setup(){
+    public void setup(){
         //Set initial pieces
         for(int x = 0; x < 8; x++){
             for(int y = 0; y < 8; y++){
