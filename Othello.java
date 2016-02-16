@@ -17,26 +17,34 @@ import java.awt.*;
  * @version 2016.02.15.v1
  */
 public class Othello extends JFrame {
-    private JMenuItem jmiNewGame;
+    private JMenuItem jmiReset;
     public static void main(String[] args){
         new Othello();
     }
 
     public Othello(){
         JMenuBar menuBar = new JMenuBar();
-            JMenu jmFile = new JMenu("File");
-                jmiNewGame = new JMenuItem("New Game");
-                jmFile.add(jmiNewGame);
-            menuBar.add(jmFile);
+            JMenu jmGame = new JMenu("Game");
+                jmiReset = new JMenuItem("Reset Game");
+                jmGame.add(jmiReset);
+            menuBar.add(jmGame);
         add(menuBar, BorderLayout.NORTH);
 
-        add(new GameBoard(), BorderLayout.CENTER);
-        add(new Scoreboard(), BorderLayout.EAST);
+        Scoreboard score = new Scoreboard();
+        add(score, BorderLayout.EAST);
+
+        GameBoard game = new GameBoard(score);
+        add(game, BorderLayout.CENTER);
 
         pack();
         setTitle("Othello");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+
+        while(true){
+            game.turn(true);
+            game.turn(false);
+        }
     }
 }

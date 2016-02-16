@@ -8,4 +8,8 @@ public class Scoreboard extends JPanel{
         add(new JLabel("Its player 2's turn"));
         add(new JButton("Help"));
     }
+
+    public void calculateScore(GamePiece[][] gamePieces){
+        //do math
+    }
 }

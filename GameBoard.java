@@ -4,16 +4,40 @@ import java.awt.*;
 public class GameBoard extends JPanel {
 
     private GamePiece[][] gamePieces;
+    private Scoreboard score;
 
-    public GameBoard(){
+    public GameBoard(Scoreboard _score){
+        score = _score;
         setLayout(new GridLayout(8, 8));
         gamePieces = new GamePiece[8][8];
             for(int x = 0; x < 8; x++){
                 for(int y = 0; y < 8; y++){
                     gamePieces[x][y] = new GamePiece();
-                    //gamePieces[x][y].setIcon(img);
                     add(gamePieces[x][y]);
                 }
             }
+        setup();
+    }
+
+    private void setup(){
+        //Set initial pieces
+        for(int x = 0; x < 8; x++){
+            for(int y = 0; y < 8; y++){
+                gamePieces[x][y].setStatus(0);
+            }
+        }
+        gamePieces[3][3].setStatus(3);
+        gamePieces[4][3].setStatus(2);
+        gamePieces[3][4].setStatus(3);
+        gamePieces[4][4].setStatus(2);
+    }
+
+    public void turn(boolean whoseTurn){
+        //does the player have any options - yes, continue - no, end turn
+        //set status of pieces the user can edit
+        //when the user preses a button (action listener) if piece is valid, change that piece, and then change other pieces that need to be changed
+        //if game is over, ask user if they want a new game or not - new game, run setup - else close game
+        //calculate score
+        score.calculateScore(gamePieces);
     }
 }
