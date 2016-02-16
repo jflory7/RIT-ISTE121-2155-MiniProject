@@ -38,6 +38,6 @@ public class GameBoard extends JPanel {
         //when the user preses a button (action listener) if piece is valid, change that piece, and then change other pieces that need to be changed
         //if game is over, ask user if they want a new game or not - new game, run setup - else close game
         //calculate score
-        score.calculateScore(gamePieces);
+        score.updateScore(gamePieces);
     }
 }
