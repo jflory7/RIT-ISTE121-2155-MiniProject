@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class Scoreboard extends JPanel implements ActionListener{
@@ -10,6 +11,7 @@ public class Scoreboard extends JPanel implements ActionListener{
     private JButton jbHelp;
 
     public Scoreboard(){
+        setLayout(new GridLayout(0, 1));
         p1Score = 0;
         p2Score = 0;
         jl1Score = new JLabel("Player one's score: " + p1Score);
