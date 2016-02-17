@@ -29,6 +29,9 @@ public class GameBoard extends JPanel {
         reset();
     }
 
+    /*
+    * Resets the gameBoard to starting position
+     */
     public void reset(){
         //Set initial pieces
         for(int x = 0; x < 8; x++){
@@ -40,7 +43,7 @@ public class GameBoard extends JPanel {
         gamePieces[4][3].setStatus(2);
         gamePieces[3][4].setStatus(2);
         gamePieces[4][4].setStatus(3);
-        //FOR TESTING GLOW
+        //FOR TESTING GLOW EFFECT
         gamePieces[0][0].setStatus(1);
         gamePieces[0][1].setStatus(1);
     }
