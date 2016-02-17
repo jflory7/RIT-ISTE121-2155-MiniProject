@@ -5,14 +5,24 @@ public class GameBoard extends JPanel {
 
     private GamePiece[][] gamePieces;
     private Scoreboard score;
+    private Color darkGreen = new Color(0, 100, 0);
+    private Color lightGreen = new Color(15, 125, 15);
 
     public GameBoard(Scoreboard _score){
         score = _score;
         setLayout(new GridLayout(8, 8));
         gamePieces = new GamePiece[8][8];
+        int colorCounter = 0;//If even, light green, if odd, dark green
             for(int x = 0; x < 8; x++){
+                colorCounter++;
                 for(int y = 0; y < 8; y++){
+                    colorCounter++;
                     gamePieces[x][y] = new GamePiece();
+                    if(colorCounter %2 == 0) {
+                        gamePieces[x][y].setBackground(lightGreen);
+                    }else{
+                        gamePieces[x][y].setBackground(darkGreen);
+                    }
                     add(gamePieces[x][y]);
                 }
             }
