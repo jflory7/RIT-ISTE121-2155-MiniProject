@@ -7,6 +7,7 @@
  */
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 /**
  * Othello.java
  *
@@ -16,8 +17,13 @@ import java.awt.*;
  * @author Justin W. Flory
  * @version 2016.02.15.v1
  */
-public class Othello extends JFrame {
+public class Othello extends JFrame implements ActionListener {
+
     private JMenuItem jmiReset;
+    private JMenuItem jmiQuit;
+    private JMenuItem jmiAbout;
+    private GameBoard game;
+
     public static void main(String[] args){
         new Othello();
     }
@@ -27,13 +33,23 @@ public class Othello extends JFrame {
             JMenu jmGame = new JMenu("Game");
                 jmiReset = new JMenuItem("Reset Game");
                 jmGame.add(jmiReset);
+                jmiQuit = new JMenuItem("Quit");
+                jmGame.add(jmiQuit);
             menuBar.add(jmGame);
+            JMenu jmHelp = new JMenu("Help");
+                jmiAbout = new JMenuItem("About");
+                jmHelp.add(jmiAbout);
+            menuBar.add(jmHelp);
         add(menuBar, BorderLayout.NORTH);
+
+        jmiReset.addActionListener(this);
+        jmiQuit.addActionListener(this);
+        jmiAbout.addActionListener(this);
 
         Scoreboard score = new Scoreboard();
         add(score, BorderLayout.EAST);
 
-        GameBoard game = new GameBoard(score);
+        game = new GameBoard(score);
         add(game, BorderLayout.CENTER);
 
         pack();
@@ -45,6 +61,20 @@ public class Othello extends JFrame {
         while(true){
             game.turn(true);
             game.turn(false);
+        }
+    }
+
+    public void actionPerformed(ActionEvent ae){
+        Object choice = ae.getSource();
+
+        if(choice == jmiReset){
+            game.setup();
+        }else if(choice == jmiQuit){
+            System.exit(0);
+        }else if(choice == jmiAbout){
+            JOptionPane.showMessageDialog(null, "About");
+        }else{
+            System.out.println("How did you get here with: " + ae);
         }
     }
 }
