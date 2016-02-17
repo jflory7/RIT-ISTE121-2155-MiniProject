@@ -36,10 +36,11 @@ public class GameBoard extends JPanel {
                 gamePieces[x][y].setStatus(0);
             }
         }
+        System.out.println("setup");
         gamePieces[3][3].setStatus(3);
         gamePieces[4][3].setStatus(2);
-        gamePieces[3][4].setStatus(3);
-        gamePieces[4][4].setStatus(2);
+        gamePieces[3][4].setStatus(2);
+        gamePieces[4][4].setStatus(3);
     }
 
     public void turn(boolean whoseTurn){
