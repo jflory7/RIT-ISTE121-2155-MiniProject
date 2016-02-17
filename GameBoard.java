@@ -40,6 +40,9 @@ public class GameBoard extends JPanel {
         gamePieces[4][3].setStatus(2);
         gamePieces[3][4].setStatus(2);
         gamePieces[4][4].setStatus(3);
+        //FOR TESTING GLOW
+        gamePieces[0][0].setStatus(1);
+        gamePieces[0][1].setStatus(1);
     }
 
     public void turn(boolean whoseTurn){

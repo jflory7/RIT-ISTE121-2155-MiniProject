@@ -1,22 +1,25 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.*;
 import java.io.*;
 
-public class GamePiece extends JButton{
+public class GamePiece extends JButton implements MouseListener {
     private int status;
     private Image blackCircle;
     private Image whiteCircle;
+    private Image transparentCircle;
     public GamePiece() {
         setStatus(0);
-        setBorder(BorderFactory.createEmptyBorder());//Remove all boarders
+        setBorder(BorderFactory.createEmptyBorder());//Remove all borders
         try {
             blackCircle = ImageIO.read(getClass().getResource("black circle.png"));
             whiteCircle = ImageIO.read(getClass().getResource("white circle.png"));
+            transparentCircle = ImageIO.read(getClass().getResource("transparent circle.png"));
         }catch(IOException e){
             System.out.println("IO Exception" + e);
         }
+        addMouseListener(this);
     }
 
     public void setStatus(int _status){
@@ -42,5 +45,23 @@ public class GamePiece extends JButton{
 
     public int getStatus(){
         return status;
+    }
+
+    /*
+    * Mouse events
+    * When a space is a valid move (status 1), add transparent circle
+     */
+    public void mouseReleased(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+        if(status == 1){
+            setIcon(new ImageIcon(transparentCircle));
+        }
+    }
+    public void mouseExited(MouseEvent e) {
+        if(status == 1){
+            setIcon(null);
+        }
     }
 }
