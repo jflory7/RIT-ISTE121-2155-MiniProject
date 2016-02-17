@@ -26,17 +26,16 @@ public class GameBoard extends JPanel {
                     add(gamePieces[x][y]);
                 }
             }
-        setup();
+        reset();
     }
 
-    public void setup(){
+    public void reset(){
         //Set initial pieces
         for(int x = 0; x < 8; x++){
             for(int y = 0; y < 8; y++){
                 gamePieces[x][y].setStatus(0);
             }
         }
-        System.out.println("setup");
         gamePieces[3][3].setStatus(3);
         gamePieces[4][3].setStatus(2);
         gamePieces[3][4].setStatus(2);
@@ -51,4 +50,6 @@ public class GameBoard extends JPanel {
         //calculate score
         score.updateScore(gamePieces);
     }
+
+    //Somehow we need an action listener here for the JButtons - Don't know how that will work with an array of buttons
 }

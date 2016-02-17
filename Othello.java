@@ -68,7 +68,7 @@ public class Othello extends JFrame implements ActionListener {
         Object choice = ae.getSource();
 
         if(choice == jmiReset){
-            game.setup();
+            game.reset();
         }else if(choice == jmiQuit){
             System.exit(0);
         }else if(choice == jmiAbout){
