@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameBoard extends JPanel {
+public class GameBoard extends JPanel implements ActionListener{
 
     private GamePiece[][] gamePieces;
     private Scoreboard score;
@@ -17,7 +19,8 @@ public class GameBoard extends JPanel {
                 colorCounter++;
                 for(int y = 0; y < 8; y++){
                     colorCounter++;
-                    gamePieces[x][y] = new GamePiece();
+                    gamePieces[x][y] = new GamePiece(x, y);
+                    gamePieces[x][y].addActionListener(this);
                     if(colorCounter %2 == 0) {
                         gamePieces[x][y].setBackground(lightGreen);
                     }else{
@@ -37,6 +40,7 @@ public class GameBoard extends JPanel {
         for(int x = 0; x < 8; x++){
             for(int y = 0; y < 8; y++){
                 gamePieces[x][y].setStatus(0);
+
             }
         }
         gamePieces[3][3].setStatus(3);
@@ -57,5 +61,14 @@ public class GameBoard extends JPanel {
         score.updateScore(gamePieces);
     }
 
-    //Somehow we need an action listener here for the JButtons - Don't know how that will work with an array of buttons
+    /*
+    * When a button  is pushed, it prints out the location of that button
+     */
+    public void actionPerformed(ActionEvent ae) {
+        String choice = ae.getActionCommand();
+        int x = Integer.parseInt(choice.substring(0, 1));
+        int y = Integer.parseInt(choice.substring(1, 2));
+
+        System.out.println("(" + x + ", " + y + ")");
+    }
 }
