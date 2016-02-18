@@ -54,6 +54,7 @@ public class Othello extends JFrame implements ActionListener {
 
         pack();
         setTitle("Othello");
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
