@@ -11,6 +11,7 @@ public class GamePiece extends JButton implements MouseListener {
     private Image transparentCircle;
     public GamePiece() {
         setStatus(0);
+        setModel(new FixedStateButtonModel());
         setBorder(BorderFactory.createEmptyBorder());//Remove all borders
         try {
             blackCircle = ImageIO.read(getClass().getResource("black circle.png"));
@@ -23,16 +24,13 @@ public class GamePiece extends JButton implements MouseListener {
     }
 
     public void setStatus(int _status){
-        if(_status < 4 && _status >= 0){
+        if(_status <= 3 && _status >= 0){//Check that status is a valid number from 0-3
             status = _status;
-            if(status == 0) {
-                //set icon to not glow
-            }else if(status == 1){
-                //set icon to glow
-                //clear Icon
+            if(status == 0 || status == 1) {
+                //Clear Icon
+                setIcon(null);
             }else if(status == 2){
                 //set Icon to black
-                //Clear Icon
                 setIcon(new ImageIcon(blackCircle));
             }else if(status == 3){
                 //set Icon to white
@@ -65,3 +63,14 @@ public class GamePiece extends JButton implements MouseListener {
         }
     }
 }
+
+/*
+* Extends the default settings for a JButton
+* Disables button highlighted on press
+ */
+class FixedStateButtonModel extends DefaultButtonModel    {
+    public boolean isPressed() {
+        return false;//forces button to never highlight when pressed
+    }
+}
+
