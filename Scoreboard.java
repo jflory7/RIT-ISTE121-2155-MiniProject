@@ -40,6 +40,38 @@ public class Scoreboard extends JPanel implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        JOptionPane.showMessageDialog(null, "Help");
+        JOptionPane.showMessageDialog(null,
+                "How to Play Othello" +
+                "\n" +
+                "\nPlayers battle to finish the game with more of their own pieces on the board than " +
+                "\ntheir opponent. The game is classed as finished when there are no spaces left on " +
+                "\nthe board or there are no more possible legal moves for either competitor" +
+                "\n" +
+                "\nThe Start" +
+                "\n" +
+                "\nBoth players begin the game with two pieces on the board in the four centre squares." +
+                "\nNo two matching colours are connected vertically or horizontally so a miniature chequered " +
+                "\npattern is made. In the typical set ups where it is black versus white the person using " +
+                "\nblack chips must make the first move." +
+                "\n" +
+                "\nThe Game" +
+                "\n" +
+                "\nBoth players take it in turns to make their move which consists of placing one piece down" +
+                "\nin a legally acceptable position and then turning any of the opposing player’s pieces where " +
+                "\napplicable. A legal move is one that consists of, for example, a black piece being placed " +
+                "\non the board that creates a straight line (vertical, horizontal or diagonal) made up of a " +
+                "\nblack piece at either end and only white pieces in between. When a player achieves this, " +
+                "\nthey must complete the move by turning any white pieces in between the two black so that they " +
+                "\nline becomes entirely black. This turning action must be completed for every legal turning " +
+                "\nline that is created with the placing of the new piece." +
+                "\n" +
+                "\nIt goes without say that while the example assumes the use of black as the moving player, it " +
+                "\nis applicable both ways." +
+                "\n" +
+                "\nPlayers will then continue to move alternately until they get to the end of the game and a " +
+                "\nwinner is decided. This decision is reached by identifying which of the two opponents has the " +
+                "\nmost pieces on the board." +
+                "\n" +
+                "\nInstructions from http://www.othelloonline.org/");
     }
 }

@@ -31,15 +31,27 @@ public class Othello extends JFrame implements ActionListener {
     public Othello(){
         JMenuBar menuBar = new JMenuBar();
             JMenu jmGame = new JMenu("Game");
+            jmGame.setMnemonic(KeyEvent.VK_G);
+
                 jmiReset = new JMenuItem("Reset Game");
+                jmiReset.setMnemonic(KeyEvent.VK_R);
                 jmGame.add(jmiReset);
+
                 jmiQuit = new JMenuItem("Quit");
+                jmiQuit.setMnemonic(KeyEvent.VK_Q);
                 jmGame.add(jmiQuit);
+
             menuBar.add(jmGame);
+
             JMenu jmHelp = new JMenu("Help");
+            jmHelp.setMnemonic(KeyEvent.VK_H);
+
                 jmiAbout = new JMenuItem("About");
+                jmiAbout.setMnemonic(KeyEvent.VK_A);
                 jmHelp.add(jmiAbout);
+
             menuBar.add(jmHelp);
+
         add(menuBar, BorderLayout.NORTH);
 
         jmiReset.addActionListener(this);
@@ -72,8 +84,11 @@ public class Othello extends JFrame implements ActionListener {
             game.reset();
         }else if(choice == jmiQuit){
             System.exit(0);
-        }else if(choice == jmiAbout){
-            JOptionPane.showMessageDialog(null, "About");
+        }else if(choice == jmiAbout){//We might want to move these instructions to help
+            JOptionPane.showMessageDialog(null, "Othello" +
+                    "\nVersion 0.1.5" +
+                    "\nDate of final release here" +
+                    "\nDeveloped by Justin W. Flory and Timothy Endersby");
         }else{
             System.out.println("How did you get here with: " + ae);
         }
