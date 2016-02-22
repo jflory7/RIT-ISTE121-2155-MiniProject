@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
  */
 public class Othello extends JFrame implements ActionListener {
 
+    public static final double gameVersion = 0.1;
     private JMenuItem jmiReset;
     private JMenuItem jmiQuit;
     private JMenuItem jmiAbout;
@@ -89,10 +90,10 @@ public class Othello extends JFrame implements ActionListener {
             System.exit(0);
         }else if(choice == jmiAbout){//We might want to move these instructions to help
             JOptionPane.showMessageDialog(null, "Othello" +
-                    "\nVersion 0.1.5" +
+                    "\nVersion " + gameVersion +
                     "\nDate of final release here" +
                     "\nDeveloped by Justin W. Flory and Timothy Endersby");
-        }else{
+        } else {
             System.out.println("How did you get here with: " + ae);
         }
     }
