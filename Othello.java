@@ -32,7 +32,7 @@ public class Othello extends JFrame implements ActionListener {
         new Othello();
     }
 
-    public Othello(){
+    public Othello() {
         JMenuBar menuBar = new JMenuBar();
             JMenu jmGame = new JMenu("Game");
             jmGame.setMnemonic(KeyEvent.VK_G);

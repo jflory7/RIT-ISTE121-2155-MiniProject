@@ -15,8 +15,6 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private GamePiece[][] gamePieces;
     private Scoreboard score;
-    private Color darkGreen = new Color(0, 100, 0);
-    private Color lightGreen = new Color(15, 125, 15);
 
     public GameBoard(Scoreboard _score) {
         score = _score;
@@ -30,8 +28,10 @@ public class GameBoard extends JPanel implements ActionListener {
                     gamePieces[x][y] = new GamePiece(x, y);
                     gamePieces[x][y].addActionListener(this);
                     if(colorCounter %2 == 0) {
+                        Color lightGreen = new Color(15, 125, 15);
                         gamePieces[x][y].setBackground(lightGreen);
                     }else{
+                        Color darkGreen = new Color(0, 100, 0);
                         gamePieces[x][y].setBackground(darkGreen);
                     }
                     add(gamePieces[x][y]);
