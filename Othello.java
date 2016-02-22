@@ -56,6 +56,7 @@ public class Othello extends JFrame implements ActionListener {
 
             menuBar.add(jmHelp);
 
+        //TODO There is a method for adding JMenuBars to a JFrame without taking up a border pane
         add(menuBar, BorderLayout.NORTH);
 
         jmiReset.addActionListener(this);
