@@ -14,9 +14,9 @@ public class GamePiece extends JButton implements MouseListener {
         setActionCommand(x + "" + y);
         setBorder(BorderFactory.createEmptyBorder());//Remove all borders
         try {
-            blackCircle = ImageIO.read(getClass().getResource("black circle.png"));
-            whiteCircle = ImageIO.read(getClass().getResource("white circle.png"));
-            transparentCircle = ImageIO.read(getClass().getResource("transparent circle.png"));
+            blackCircle = ImageIO.read(getClass().getResource("resources/img/black-circle.png"));
+            whiteCircle = ImageIO.read(getClass().getResource("resources/img/white-circle.png"));
+            transparentCircle = ImageIO.read(getClass().getResource("resources/img/transparent-circle.png"));
         }catch(IOException e){
             System.out.println("IO Exception" + e);
         }
