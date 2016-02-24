@@ -76,7 +76,6 @@ public class GameBoard extends JPanel implements ActionListener {
         String choice = ae.getActionCommand();
         int x = Integer.parseInt(choice.substring(0, 1));
         int y = Integer.parseInt(choice.substring(1, 2));
-
         System.out.println("(" + x + ", " + y + ")");
     }
 }

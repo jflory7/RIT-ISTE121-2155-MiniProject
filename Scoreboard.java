@@ -17,16 +17,21 @@ public class Scoreboard extends JPanel implements ActionListener{
     private int p2Score;
     private JLabel jl1Score;
     private JLabel jl2Score;
+    private JLabel player;
     private JButton jbHelp;
 
     public Scoreboard(){
-        setLayout(new GridLayout(0, 1));
+        setLayout(new GridLayout(20, 1));
         p1Score = 0;
         p2Score = 0;
         jl1Score = new JLabel("Player one's score: " + p1Score);
         add(jl1Score);
         jl2Score = new JLabel("Player two's score: " + p2Score);
         add(jl2Score);
+        add(new JLabel());//blank line
+        player = new JLabel("It is player "+ "2" + "'s" + " turn");//replace with variable
+        add(player);
+        add(new JLabel());//blank line
         jbHelp = new JButton("Help");
         add(jbHelp);
         jbHelp.addActionListener(this);
