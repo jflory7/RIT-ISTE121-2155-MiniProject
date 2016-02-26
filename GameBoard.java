@@ -15,8 +15,10 @@ public class GameBoard extends JPanel implements ActionListener {
 
     private GamePiece[][] gamePieces;
     private Scoreboard score;
+    private boolean turnFinished;
 
     public GameBoard(Scoreboard _score) {
+        turnFinished = false;
         score = _score;
         setLayout(new GridLayout(8, 8));
         gamePieces = new GamePiece[8][8];
@@ -61,12 +63,27 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     public void turn (boolean whoseTurn) {
-        //does the player have any options - yes, continue - no, end turn
+        score.updateScore(gamePieces, whoseTurn);
+        turnFinished = false;
+        //does the player have any options - yes, continue - no, end turn here
         //set status of pieces the user can edit
+
+        for(int x = 0; x < 8; x++){
+            for(int y = 0; y < 8; y++){
+                //do Logic to see if its a valid move
+            }
+        }
         //when the user preses a button (action listener) if piece is valid, change that piece, and then change other pieces that need to be changed
         //if game is over, ask user if they want a new game or not - new game, run setup - else close game
         //calculate score
-        score.updateScore(gamePieces);
+        while(!turnFinished){//wait until the turn is done - turn is set to true in the action listener
+            try {
+                Thread.sleep(100);//This is to reduce CPU usage - without it it uses a lot of CPU
+            }catch(InterruptedException e){
+                System.out.println("Sleep error" + e);
+            }
+        }
+        score.updateScore(gamePieces, whoseTurn);
     }
 
     /*
@@ -77,5 +94,16 @@ public class GameBoard extends JPanel implements ActionListener {
         int x = Integer.parseInt(choice.substring(0, 1));
         int y = Integer.parseInt(choice.substring(1, 2));
         System.out.println("(" + x + ", " + y + ")");
+
+        int status = gamePieces[x][y].getStatus();
+        if(status == 0) {
+            System.out.println("Nothing, button not valid");
+        }else if(status == 1){
+            //Logic to switch all applicable pieces goes here
+            gamePieces[x][y].setStatus(2);
+            turnFinished = true;
+        }else if(status == 2 || status == 3){
+            System.out.println("nothing, button already pressed");
+        }
     }
 }

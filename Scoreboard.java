@@ -15,6 +15,7 @@ public class Scoreboard extends JPanel implements ActionListener{
 
     private int p1Score;
     private int p2Score;
+    private int turn;
     private JLabel jl1Score;
     private JLabel jl2Score;
     private JLabel player;
@@ -22,22 +23,26 @@ public class Scoreboard extends JPanel implements ActionListener{
 
     public Scoreboard(){
         setLayout(new GridLayout(20, 1));
-        p1Score = 0;
-        p2Score = 0;
         jl1Score = new JLabel("Player one's score: " + p1Score);
         add(jl1Score);
         jl2Score = new JLabel("Player two's score: " + p2Score);
         add(jl2Score);
         add(new JLabel());//blank line
-        player = new JLabel("It is player "+ "2" + "'s" + " turn");//replace with variable
+        player = new JLabel("It is player "+ turn + "'s" + " turn");
         add(player);
         add(new JLabel());//blank line
         jbHelp = new JButton("Help");
         add(jbHelp);
         jbHelp.addActionListener(this);
+
     }
 
-    public void updateScore(GamePiece[][] gamePieces){
+    public void updateScore(GamePiece[][] gamePieces, boolean _turn){
+        //Set whose turn it is
+        if(_turn) turn = 1;
+        else turn = 2;
+
+        //Reset the scores
         p1Score = 0;
         p2Score = 0;
         for(int x = 0; x < 8; x++){
@@ -51,6 +56,7 @@ public class Scoreboard extends JPanel implements ActionListener{
         }
         jl1Score.setText("Player one's score: " + p1Score);
         jl2Score.setText("Player two's score: " + p2Score);
+        player.setText("It is player "+ turn + "'s" + " turn");
     }
 
     public void actionPerformed(ActionEvent ae) {
