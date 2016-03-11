@@ -23,12 +23,12 @@ public class Scoreboard extends JPanel implements ActionListener{
 
     public Scoreboard(){
         setLayout(new GridLayout(20, 1));
-        jl1Score = new JLabel("Player one's score: " + p1Score);
+        jl1Score = new JLabel("Player one's score: " + p1Score, SwingConstants.CENTER);//"/t" is used to make the scoreboard wider
         add(jl1Score);
-        jl2Score = new JLabel("Player two's score: " + p2Score);
+        jl2Score = new JLabel("Player two's score: " + p2Score, SwingConstants.CENTER);
         add(jl2Score);
-        add(new JLabel());//blank line
-        player = new JLabel("It is player "+ turn + "'s" + " turn");
+        add(new JLabel("                                                       "));//blank line
+        player = new JLabel("It is player "+ turn + "'s" + " turn", SwingConstants.CENTER);
         add(player);
         add(new JLabel());//blank line
         jbHelp = new JButton("Help");
