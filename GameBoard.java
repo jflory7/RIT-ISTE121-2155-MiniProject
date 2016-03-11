@@ -60,6 +60,7 @@ public class GameBoard extends JPanel implements ActionListener {
         //FOR TESTING GLOW EFFECT
         gamePieces[0][0].setStatus(1);
         gamePieces[0][1].setStatus(1);
+        score.updateScore(gamePieces, true);
     }
 
     public void turn (boolean whoseTurn) {
