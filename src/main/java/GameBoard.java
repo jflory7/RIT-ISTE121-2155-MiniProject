@@ -156,26 +156,46 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Checks to see if a move a player makes is valid or not by iterating through nearby pieces to see if one of its
-     * own is around. If the move is valid, the piece's status is set to '1' to enable the glow effect. Returns true
-     * if move is valid.
+     * Checks to see if a move a player makes is valid or not by checking all of the possible directions a move can
+     * be made. If the move is valid, the piece's status is set to '1' to enable the glow effect. Returns true if
+     * move is valid.
      *
      * @param rightHere the GamePiece being tested for
      * @return true if the move is valid
      */
     public boolean checkForMove(GamePiece rightHere) {
-        //TODO This method needs further analysis and thought
-
-        // The logic that was here is invalid because you can still make moves on pieces that are not in the
-        // immediate proximity of the game piece. FML.
-        if (checkForDirection(-1, -1, rightHere) > 0) return true;
-        else if (checkForDirection(0, -1, rightHere) > 0) return true;
-        else if (checkForDirection(+1, -1, rightHere) > 0) return true;
-        else if (checkForDirection(+1, 0, rightHere) > 0) return true;
-        else if (checkForDirection(+1, +1, rightHere) > 0) return true;
-        else if (checkForDirection(0, +1, rightHere) > 0) return true;
-        else if (checkForDirection(-1, +1, rightHere) > 0) return true;
-        else if (checkForDirection(-1, 0, rightHere) > 0) return true;
+        if (checkForDirection(-1, -1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(0, -1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(+1, -1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(+1, 0, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(+1, +1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(0, +1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(-1, +1, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
+        else if (checkForDirection(-1, 0, rightHere) > 0) {
+            rightHere.setStatus(1);
+            return true;
+        }
 
         return false;
     }
@@ -233,6 +253,15 @@ public class GameBoard extends JPanel implements ActionListener {
         else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
     }
 
+    /**
+     * This method checks for all pieces in the specified direction of a game piece and sees if there are any valid
+     * moves.
+     *
+     * @param plusX the x-position in relation to the position of the game piece
+     * @param plusY the y-position in relation to the position of the game piece
+     * @param rightHere the GamePiece being checked against
+     * @return >0 if valid move, 0 if invalid, <0 if unexpected error
+     */
     private int checkForDirection(int plusX, int plusY, GamePiece rightHere) {
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
