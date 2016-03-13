@@ -282,7 +282,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 return counter;
             }else if(stat == player+2 || stat == player){
                 counter++;
-            }else if(stat == 0){
+            }else if(stat == 0 || stat == 1){
                 return 0;
             }else{
                 System.out.println("Status error " + x + ", " + y +  gamePieces[x][y].getStatus());
