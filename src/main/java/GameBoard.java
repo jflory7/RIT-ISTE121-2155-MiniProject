@@ -115,8 +115,17 @@ public class GameBoard extends JPanel implements ActionListener {
         score.updateScore(gamePieces, whoseTurn);
         turnFinished = false;
 
+<<<<<<< HEAD
         int validMoves = countValidMoves();
 
+=======
+        // Checks for valid moves and counts how many valid moves there are
+        if(countValidMoves() == 0){
+            System.out.println("End game");
+        }
+
+        /*
+>>>>>>> parent of 5e04827... THE GAME WORKS
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
             JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
@@ -152,36 +161,36 @@ public class GameBoard extends JPanel implements ActionListener {
      * @param rightHere the GamePiece being tested for
      * @return true if the move is valid
      */
-    public boolean checkForMove(GamePiece rightHere, boolean setPieces) {
-        if (checkForDirection(-1, -1, rightHere, setPieces) > 0) {
+    public boolean checkForMove(GamePiece rightHere) {
+        if (checkForDirection(-1, -1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(0, -1, rightHere, setPieces) > 0) {
+        else if (checkForDirection(0, -1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(+1, -1, rightHere, setPieces) > 0) {
+        else if (checkForDirection(+1, -1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(+1, 0, rightHere, setPieces) > 0) {
+        else if (checkForDirection(+1, 0, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(+1, +1, rightHere, setPieces) > 0) {
+        else if (checkForDirection(+1, +1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(0, +1, rightHere, setPieces) > 0) {
+        else if (checkForDirection(0, +1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(-1, +1, rightHere, setPieces) > 0) {
+        else if (checkForDirection(-1, +1, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
-        else if (checkForDirection(-1, 0, rightHere, setPieces) > 0) {
+        else if (checkForDirection(-1, 0, rightHere) > 0) {
             rightHere.setStatus(1);
             return true;
         }
@@ -213,6 +222,7 @@ public class GameBoard extends JPanel implements ActionListener {
          *    2/3   =   Invalid move, piece already placed
          */
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
+<<<<<<< HEAD
 
         else if (status == 1) {
             //Set selected piece
@@ -227,6 +237,18 @@ public class GameBoard extends JPanel implements ActionListener {
             checkForDirection(0, +1, rightHere, true);
             checkForDirection(-1, +1, rightHere, true);
             checkForDirection(-1, 0, rightHere, true);
+=======
+        
+        else if (status == 1) {
+            //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
+            if (score.getTurn() == 1) {
+                gamePieces[x][y].setStatus(2);
+                //TODO Change all neighboring pieces that are affected
+            } else if (score.getTurn() == 2) {
+                gamePieces[x][y].setStatus(3);
+                //TODO Change all neighboring pieces that are affected
+            }
+>>>>>>> parent of 5e04827... THE GAME WORKS
 
             turnFinished = true;
         }
@@ -243,14 +265,11 @@ public class GameBoard extends JPanel implements ActionListener {
      * @param rightHere the GamePiece being checked against
      * @return >0 if valid move, 0 if invalid, <0 if unexpected error
      */
-    private int checkForDirection(int plusX, int plusY, GamePiece rightHere, boolean setPieces) {
+    private int checkForDirection(int plusX, int plusY, GamePiece rightHere) {
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
         int player = score.getTurn();
         int counter = 0;
-        int status = 0;
-        if (score.getTurn() == 1) status = 2;
-        else if (score.getTurn() == 2) status = 3;
         while(true) {
             x+=plusX;
             y+=plusY;
@@ -258,8 +277,13 @@ public class GameBoard extends JPanel implements ActionListener {
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
+<<<<<<< HEAD
                 // DEBUG LINE if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
                 break;
+=======
+                if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
+                return counter;
+>>>>>>> parent of 5e04827... THE GAME WORKS
             }else if(stat == 0 || stat == 1){
                 return 0;
             }else if(stat == player+2 || stat == player){
@@ -269,17 +293,6 @@ public class GameBoard extends JPanel implements ActionListener {
                 return 0;
             }
         }
-
-        if(counter != 0 && setPieces){
-            x = rightHere.getXPos();
-            y = rightHere.getYPos();
-            for(int i = 0; i < counter; i++){
-                x+=plusX;
-                y+=plusY;
-                gamePieces[x][y].setStatus(status);
-            }
-        }
-        return counter;
     }
 
     /**
@@ -296,7 +309,7 @@ public class GameBoard extends JPanel implements ActionListener {
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 if(gamePieces[x][y].getStatus() < 2) {
-                    if (checkForMove(gamePieces[x][y], false)) validMoves++;
+                    if (checkForMove(gamePieces[x][y])) validMoves++;
                     else gamePieces[x][y].setStatus(0);
                 }
             }
