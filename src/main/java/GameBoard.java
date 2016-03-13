@@ -130,6 +130,7 @@ public class GameBoard extends JPanel implements ActionListener {
               |_|
 
  */
+        /*
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
             JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
@@ -241,5 +242,27 @@ public class GameBoard extends JPanel implements ActionListener {
         }
 
         else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
+    }
+
+    private int checkDirrection(int plusX, int plusY, GamePiece rightHere) {
+        int x = rightHere.getXPos();
+        int y = rightHere.getYPos();
+        int player = score.getTurn();
+        int counter = 0;
+        while(true) {
+            x+=plusX;
+            y+=plusY;
+            int stat = gamePieces[x][y].getStatus();
+            if(stat == player+1) {
+                return counter;
+            }else if(stat == player+2 || stat == player){
+                counter++;
+            }else if(stat == 0){
+                return 0;
+            }else{
+                System.out.print("Status error");
+                return 0;
+            }
+        }
     }
 }
