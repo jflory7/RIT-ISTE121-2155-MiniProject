@@ -155,20 +155,6 @@ public class GameBoard extends JPanel implements ActionListener {
         score.updateScore(gamePieces, whoseTurn);
     }
 
-
-
-/*
- _____ _               __
-/  ___| |             /  |
-\ `--.| |_ ___ _ __   `| |
- `--. \ __/ _ \ '_ \   | |
-/\__/ / ||  __/ |_) | _| |_
-\____/ \__\___| .__/  \___/
-              | |
-              |_|
-*/
-
-
     /**
      * Checks to see if a move a player makes is valid or not by iterating through nearby pieces to see if one of its
      * own is around. If the move is valid, the piece's status is set to '1' to enable the glow effect. Returns true
@@ -183,9 +169,23 @@ public class GameBoard extends JPanel implements ActionListener {
         // The logic that was here is invalid because you can still make moves on pieces that are not in the
         // immediate proximity of the game piece. FML.
         if (score.getTurn() == 1) {
-
+            if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos(), rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos(), rightHere)) return true;
         } else if (score.getTurn() == 2) {
-
+            if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()-1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos(), rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()+1, rightHere)) return true;
+            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos(), rightHere)) return true;
         }
 
         return false;
