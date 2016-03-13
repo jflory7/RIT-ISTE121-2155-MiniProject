@@ -9,66 +9,113 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 
-public class GamePiece extends JButton implements MouseListener {
+/**
+ * GamePiece.java
+ *
+ * This class defines the behavior and logic for the game pieces. It works with the images that compose pieces,
+ * defines and sets the status for game pieces (e.g. whether a piece is in play or not), as well as handle mouse
+ * actions for an "overlay" effect on potential moves.
+ *
+ * @author Timothy Endersby
+ * @author Justin W. Flory
+ * @version 2016.02.15.v2
+ */
+public class GamePiece extends JButton {
+
+    // Attributes
     private int status;
     private Image blackCircle;
     private Image whiteCircle;
     private Image transparentCircle;
 
+    /**
+     * Default constructor.
+     *
+     * @param x the x-position of the piece on the board
+     * @param y the y-position of the piece on the board
+     */
     public GamePiece(int x, int y) {
+
+        // Sets action command to represent the piece's coordinates
         setActionCommand(x + "" + y);
-        setBorder(BorderFactory.createEmptyBorder());//Remove all borders
+
+        // Removes borders from all game pieces
+        setBorder(BorderFactory.createEmptyBorder());
+
+        // Tries to set the image files to be used for game pieces to attributes defined previously
         try {
             blackCircle = ImageIO.read(getClass().getResource("resources/img/black-circle.png"));
             whiteCircle = ImageIO.read(getClass().getResource("resources/img/white-circle.png"));
             transparentCircle = ImageIO.read(getClass().getResource("resources/img/transparent-circle.png"));
-        }catch(IOException e){
-            System.out.println("IO Exception" + e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        addMouseListener(this);
+
+        // Adds a mouse listener to the piece
+        addMouseListener(new MouseAction());
     }
 
-    public void setStatus(int _status){
-        if(_status <= 3 && _status >= 0){//Check that status is a valid number from 0-3
-            status = _status;
-            if(status == 0 || status == 1) {
-                //Clear Icon
-                setIcon(null);
-            }else if(status == 2){
-                //set Icon to black
-                setIcon(new ImageIcon(blackCircle));
-            }else if(status == 3){
-                //set Icon to white
-                setIcon(new ImageIcon(whiteCircle));
-            }
-        }else{
-            System.out.println("Status set error, status entered: " + _status);
+    /**
+     * Sets the status of the piece to represent its state in the game (e.g. is there a piece in this position, what
+     * player currently has a piece here, is this a valid move, etc.).
+     *
+     * @param status the integer value representing the status of the piece
+     */
+    public void setStatus(int status){
+
+        // Sanity check if the passed number is valid
+        if (status <= 3 && status >= 0) {
+            // Initialize status to local variable
+            this.status = status;
+
+            // Clears icon
+            if(status == 0 || status == 1) setIcon(null);
+
+            // Sets icon to black
+            else if(status == 2) setIcon(new ImageIcon(blackCircle));
+
+            // Sets icon to white
+            else if(status == 3) setIcon(new ImageIcon(whiteCircle));
+        } else {
+            System.out.println("Invalid status entry." +
+                    "\nStatus entered: " + status);
         }
     }
 
+    /**
+     * Returns piece status.
+     *
+     * @return int the status of a piece
+     */
     public int getStatus(){
         return status;
     }
 
-    /*
-    * Mouse events
-    * When a space is a valid move (status 1), add transparent circle
+    /**
+     * MouseAction inner class.
+     *
+     * Inner class that defines behavior for mouse events. When a space is a valid move (status 1), add a transparent
+     * circle overlay to the board to show a move can be made there.
      */
-    public void mouseReleased(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
-    public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {
-        if(status == 1){
-            setIcon(new ImageIcon(transparentCircle));
-        }
-    }
-    public void mouseExited(MouseEvent e) {
-        if(status == 1){
-            setIcon(null);
-        }
+    public class MouseAction extends MouseAdapter {
+
+        /**
+         * When mousing over a piece with a valid move, set it to display the transparent circle, indicating a move
+         * can be made in that position.
+         *
+         * @param e the mouse event passed to listener (not used in this implementation)
+         */
+        public void mouseEntered(MouseEvent e) { if (status == 1) setIcon(new ImageIcon(transparentCircle)); }
+
+        /**
+         * When mousing away from a piece that was a valid move, set it back to a null icon.
+         *
+         * @param e the mouse event passed to listener (not used in this implementation)
+         */
+        public void mouseExited(MouseEvent e) { if (status == 1) setIcon(null); }
     }
 }
