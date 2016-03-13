@@ -48,7 +48,7 @@ public class GameBoard extends JPanel implements ActionListener {
         setLayout(new GridLayout(8, 8));
         gamePieces = new GamePiece[8][8];
 
-        // Color counter that generates the checkerboard design for the gameboard (even = light green, odd = dark green)
+        // Color counter that generates the checkerboard design for the board (even = light green, odd = dark green)
         int colorCounter = 0;
 
             for (int x = 0; x < 8; x++) {
@@ -108,11 +108,12 @@ public class GameBoard extends JPanel implements ActionListener {
      */
     public void turn (boolean whoseTurn) {
 
-        //
+        // Update the score before beginning turn and set turn to unfinished (in case hanging from previous runs)
         score.updateScore(gamePieces, whoseTurn);
         turnFinished = false;
 
         //TODO Run check here. Does the player have valid options? If yes, continue; if no, break!
+        if (checkForMove() == false) turnFinished = true;
 
         //TODO Set status of pieces onMouseOver (do we want to do that here or elsewhere?)
 
@@ -138,6 +139,10 @@ public class GameBoard extends JPanel implements ActionListener {
 
         // Runs score calculation before exiting loop
         score.updateScore(gamePieces, whoseTurn);
+    }
+
+    public boolean checkForMove() {
+        return true;
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Justin W. Flory, Timothy Endersby
+ * Copyright (c) 2016 Justin W. Flory
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -48,9 +48,9 @@ public class GamePiece extends JButton {
 
         // Tries to set the image files to be used for game pieces to attributes defined previously
         try {
-            blackCircle = ImageIO.read(getClass().getResource("resources/img/black-circle.png"));
-            whiteCircle = ImageIO.read(getClass().getResource("resources/img/white-circle.png"));
-            transparentCircle = ImageIO.read(getClass().getResource("resources/img/transparent-circle.png"));
+            blackCircle = ImageIO.read(getClass().getResource("images/black-circle.png"));
+            whiteCircle = ImageIO.read(getClass().getResource("images/white-circle.png"));
+            transparentCircle = ImageIO.read(getClass().getResource("images/transparent-circle.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
