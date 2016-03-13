@@ -41,13 +41,13 @@ public class Scoreboard extends JPanel implements ActionListener {
         setLayout(new GridLayout(20, 1));
 
         // Create labels for both player one and player two's scores, add to frame
-        jl1Score = new JLabel("Player One's score: " + p1Score, SwingConstants.CENTER);
+        jl1Score = new JLabel("Player one's (black) score: " + p1Score, SwingConstants.CENTER);
             add(jl1Score);
-        jl2Score = new JLabel("Player Two's score: " + p2Score, SwingConstants.CENTER);
+        jl2Score = new JLabel("Player two's (white) score: " + p2Score, SwingConstants.CENTER);
             add(jl2Score);
 
         // Empty label, used as a spacer
-        add(new JLabel("                                                       "));
+        add(new JLabel("                                                                  "));
 
         // Display which player's turn it is, add to JFrame
         player = new JLabel("It is player "+ turn + "'s " + "turn.", SwingConstants.CENTER);
@@ -89,8 +89,8 @@ public class Scoreboard extends JPanel implements ActionListener {
         }
 
         // Sets the score labels based on updated values
-        jl1Score.setText("Player one's score: " + p1Score);
-        jl2Score.setText("Player two's score: " + p2Score);
+        jl1Score.setText("Player one's (black) score: " + p1Score);
+        jl2Score.setText("Player two's (white) score: " + p2Score);
         player.setText("It is player "+ turn + "'s" + " turn");
     }
 
