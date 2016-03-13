@@ -121,6 +121,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 }
             }
         }
+
         if(validMoves == 0){
             System.out.println("End game");
         }
@@ -279,11 +280,12 @@ public class GameBoard extends JPanel implements ActionListener {
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
+                if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
                 return counter;
-            }else if(stat == player+2 || stat == player){
-                counter++;
             }else if(stat == 0 || stat == 1){
                 return 0;
+            }else if(stat == player+2 || stat == player){
+                counter++;
             }else{
                 System.out.println("Status error " + x + ", " + y +  gamePieces[x][y].getStatus());
                 return 0;
