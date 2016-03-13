@@ -28,6 +28,8 @@ public class GamePiece extends JButton {
 
     // Attributes
     private int status;
+    int x;
+    int y;
     private Image blackCircle;
     private Image whiteCircle;
     private Image transparentCircle;
@@ -39,6 +41,10 @@ public class GamePiece extends JButton {
      * @param y the y-position of the piece on the board
      */
     public GamePiece(int x, int y) {
+
+        // Initialize x and y values into piece
+        this.x = x;
+        this.y = y;
 
         // Sets action command to represent the piece's coordinates
         setActionCommand(x + "" + y);
@@ -91,8 +97,26 @@ public class GamePiece extends JButton {
      *
      * @return int the status of a piece
      */
-    public int getStatus(){
+    public int getStatus() {
         return status;
+    }
+
+    /**
+     * Returns x-position of the piece.
+     *
+     * @return x-position of the piece
+     */
+    public int getXPos() {
+        return x;
+    }
+
+    /**
+     * Returns y-position of the piece.
+     *
+     * @return y-position of the piece
+     */
+    public int getYPos() {
+        return y;
     }
 
     /**
