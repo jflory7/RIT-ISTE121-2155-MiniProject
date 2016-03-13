@@ -93,6 +93,9 @@ public class GameBoard extends JPanel implements ActionListener {
         gamePieces[3][4].setStatus(2);
         gamePieces[4][4].setStatus(3);
 
+        //Sets status for valid possible moves
+        countValidMoves();
+
         // Updates the score to reflect the accurate number of pieces on the board
         score.updateScore(gamePieces, true);
     }
@@ -106,34 +109,23 @@ public class GameBoard extends JPanel implements ActionListener {
     public void turn(boolean whoseTurn) {
 
         // Local variables
-        int validMoves = 0;
+        //int validMoves = 0;
 
         // Update the score before beginning turn and set turn to unfinished (in case hanging from previous runs)
         score.updateScore(gamePieces, whoseTurn);
         turnFinished = false;
 
-        // Checks for valid moves and counts how many valid moves there are
-        if(countValidMoves() == 0){
-            System.out.println("End game");
-        }
-/*
- _____ _               _____
-/  ___| |             |____ |
-\ `--.| |_ ___ _ __       / /
- `--. \ __/ _ \ '_ \      \ \
-/\__/ / ||  __/ |_) | .___/ /
-\____/ \__\___| .__/  \____/
-              | |
-              |_|
+        int validMoves = countValidMoves();
 
- */
-        /*
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
             JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
             turnFinished = true;
-
-            //TODO Game needs to be ended here
+            String[] options = new String[] {"Play again", "Quit"};
+            int response = JOptionPane.showOptionDialog(null, "There are no more moves left", "Winner",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                    null, options, options[0]);
+            System.out.println(response);
         }
 
         /*
@@ -222,30 +214,11 @@ public class GameBoard extends JPanel implements ActionListener {
          */
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
-/*
- _____ _               _____
-/  ___| |             / __  \
-\ `--.| |_ ___ _ __   `' / /'
- `--. \ __/ _ \ '_ \    / /
-/\__/ / ||  __/ |_) | ./ /___
-\____/ \__\___| .__/  \_____/
-              | |
-              |_|
-
-*/
-
         else if (status == 1) {
-            //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
-            if (score.getTurn() == 1) {
-                gamePieces[x][y].setStatus(2);
-                //TODO Change all neighboring pieces that are affected
-            } else if (score.getTurn() == 2) {
-                gamePieces[x][y].setStatus(3);
-                //TODO Change all neighboring pieces that are affected
-            }
+            //Set selected piece
+            gamePieces[x][y].setStatus(score.getTurn() + 1);
 
-            turnFinished = true;
-
+            //Move pieces in all 8 directions
             GamePiece rightHere = gamePieces[x][y];
             checkForDirection(-1, -1, rightHere, true);
             checkForDirection(0, -1, rightHere, true);
@@ -255,6 +228,7 @@ public class GameBoard extends JPanel implements ActionListener {
             checkForDirection(-1, +1, rightHere, true);
             checkForDirection(-1, 0, rightHere, true);
 
+            turnFinished = true;
         }
 
         else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
@@ -284,14 +258,14 @@ public class GameBoard extends JPanel implements ActionListener {
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
-                if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
+                // DEBUG LINE if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
                 break;
             }else if(stat == 0 || stat == 1){
                 return 0;
             }else if(stat == player+2 || stat == player){
                 counter++;
             }else{
-                System.out.println("Status error " + x + ", " + y +  gamePieces[x][y].getStatus());
+                System.out.println("Status error " + x + ", " + y + " status: " + gamePieces[x][y].getStatus());
                 return 0;
             }
         }
