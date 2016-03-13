@@ -116,17 +116,7 @@ public class GameBoard extends JPanel implements ActionListener {
         if(countValidMoves() == 0){
             System.out.println("End game");
         }
-/*
- _____ _               _____
-/  ___| |             |____ |
-\ `--.| |_ ___ _ __       / /
- `--. \ __/ _ \ '_ \      \ \
-/\__/ / ||  __/ |_) | .___/ /
-\____/ \__\___| .__/  \____/
-              | |
-              |_|
 
- */
         /*
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
@@ -221,19 +211,7 @@ public class GameBoard extends JPanel implements ActionListener {
          *    2/3   =   Invalid move, piece already placed
          */
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
-
-/*
- _____ _               _____
-/  ___| |             / __  \
-\ `--.| |_ ___ _ __   `' / /'
- `--. \ __/ _ \ '_ \    / /
-/\__/ / ||  __/ |_) | ./ /___
-\____/ \__\___| .__/  \_____/
-              | |
-              |_|
-
-*/
-
+        
         else if (status == 1) {
             //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
             if (score.getTurn() == 1) {
