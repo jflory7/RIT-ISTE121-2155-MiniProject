@@ -34,7 +34,8 @@ public class GameBoard extends JPanel implements ActionListener {
     private boolean turnFinished;
 
     /**
-     * Default constructor.
+     * Default constructor. Creates array for GamePieces, initializes board, and resets it, making it ready for a new
+     * game to begin.
      *
      * @param score the Scoreboard object to keep track of
      */
@@ -92,11 +93,7 @@ public class GameBoard extends JPanel implements ActionListener {
         gamePieces[3][4].setStatus(2);
         gamePieces[4][4].setStatus(3);
 
-        // FOR TESTING GLOW EFFECT
-        gamePieces[0][0].setStatus(1);
-        gamePieces[0][1].setStatus(1);
-
-        //
+        // Updates the score to reflect the accurate number of pieces on the board
         score.updateScore(gamePieces, true);
     }
 
@@ -106,27 +103,33 @@ public class GameBoard extends JPanel implements ActionListener {
      *
      * @param whoseTurn true if it is currently the player's turn
      */
-    public void turn (boolean whoseTurn) {
+    public void turn(boolean whoseTurn) {
+
+        // Local variables
+        int validMoves = 0;
 
         // Update the score before beginning turn and set turn to unfinished (in case hanging from previous runs)
         score.updateScore(gamePieces, whoseTurn);
         turnFinished = false;
 
-        //TODO Run check here. Does the player have valid options? If yes, continue; if no, break!
-        if (checkForMove() == false) turnFinished = true;
-
-        //TODO Set status of pieces onMouseOver (do we want to do that here or elsewhere?)
-
+        // Checks for valid moves and counts how many valid moves there are
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                //TODO Check if valid move
+                checkForMove(gamePieces[x][y]);
+                if (checkForMove(gamePieces[x][y])) validMoves++;
             }
         }
 
+        // If there are no more valid moves to be made, end turn and end game
+        if (validMoves == 0) {
+            JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
+            turnFinished = true;
+
+            //TODO Game needs to be ended here
+        }
+
         /*
-         * When the user presses a button (ActionListener), it checks if the move is valid.
-         *      If yes: Change that piece and change other pieces that need changing
-         *      If no valid moves: End game. Ask user if they want a new game (run setup); else, close the game
+         * //TODO Explain this block below in more English-y words
          */
         while (!turnFinished) { //wait until the turn is done - turn is set to true in the action listener
             try {
@@ -141,8 +144,43 @@ public class GameBoard extends JPanel implements ActionListener {
         score.updateScore(gamePieces, whoseTurn);
     }
 
-    public boolean checkForMove() {
-        return true;
+    /**
+     * Checks to see if a move a player makes is valid or not by iterating through nearby pieces to see if one of its
+     * own is around. If the move is valid, the piece's status is set to '1' to enable the glow effect. Returns true
+     * if move is valid.
+     *
+     * @param rightHere the GamePiece being tested for
+     * @return true if the move is valid
+     */
+    public boolean checkForMove(GamePiece rightHere) {
+        //TODO This method needs further analysis and thought
+
+        if (score.getTurn() == 1) {
+            for (int i = rightHere.getXPos() - 1; i < i + 2; i++) {
+                for (int j = rightHere.getYPos() - 1; j < j + 2; j++) {
+                    if (i < 0) i = 0;
+                    else if (i > 7) i = 7;
+                    else if (j < 0) j = 0;
+                    else if (j > 7) j = 7;
+
+                    if (gamePieces[i][j].getStatus() == 2) {
+                        rightHere.setStatus(1);
+                        return true;
+                    }
+                }
+            }
+        } else if (score.getTurn() == 2) {
+            for (int i = rightHere.getXPos() - 1; i < i + 2; i++) {
+                for (int j = rightHere.getYPos() - 1; j < j + 2; j++) {
+                    if (gamePieces[i][j].getStatus() == 3) {
+                        rightHere.setStatus(1);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -168,15 +206,21 @@ public class GameBoard extends JPanel implements ActionListener {
          *      1   =   Valid move, change all applicable pieces
          *    2/3   =   Invalid move, piece already placed
          */
-        if (status == 0) System.out.println("Nothing, button not valid");
+        if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
         else if (status == 1) {
             //TODO Logic to convert pieces goes here
+            if (score.getTurn() == 1) {
+                gamePieces[x][y].setStatus(2);
+                //TODO Change all neighboring pieces that are affected
+            } else if (score.getTurn() == 2) {
+                gamePieces[x][y].setStatus(3);
+                //TODO Change all neighboring pieces that are affected
+            }
 
-            gamePieces[x][y].setStatus(2);
             turnFinished = true;
         }
 
-        else if (status == 2 || status == 3) System.out.println("nothing, button already pressed");
+        else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
     }
 }
