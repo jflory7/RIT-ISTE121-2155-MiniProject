@@ -168,25 +168,14 @@ public class GameBoard extends JPanel implements ActionListener {
 
         // The logic that was here is invalid because you can still make moves on pieces that are not in the
         // immediate proximity of the game piece. FML.
-        if (score.getTurn() == 1) {
-            if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos(), rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos(), rightHere)) return true;
-        } else if (score.getTurn() == 2) {
-            if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()-1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos(), rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()+1, rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos(), rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos()+1, rightHere)) return true;
-            else if (checkForDirection(rightHere.getXPos()-1, rightHere.getYPos(), rightHere)) return true;
-        }
+        if (checkForDirection(-1, -1, rightHere) > 0) return true;
+        else if (checkForDirection(0, -1, rightHere) > 0) return true;
+        else if (checkForDirection(+1, -1, rightHere) > 0) return true;
+        else if (checkForDirection(+1, 0, rightHere) > 0) return true;
+        else if (checkForDirection(+1, +1, rightHere) > 0) return true;
+        else if (checkForDirection(0, +1, rightHere) > 0) return true;
+        else if (checkForDirection(-1, +1, rightHere) > 0) return true;
+        else if (checkForDirection(-1, 0, rightHere) > 0) return true;
 
         return false;
     }
@@ -244,7 +233,7 @@ public class GameBoard extends JPanel implements ActionListener {
         else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
     }
 
-    private int checkDirrection(int plusX, int plusY, GamePiece rightHere) {
+    private int checkForDirection(int plusX, int plusY, GamePiece rightHere) {
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
         int player = score.getTurn();
