@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Justin W. Flory, Timothy Endersby
+ * Copyright (c) 2016 Justin W. Flory
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -92,6 +92,15 @@ public class Scoreboard extends JPanel implements ActionListener {
         jl1Score.setText("Player one's score: " + p1Score);
         jl2Score.setText("Player two's score: " + p2Score);
         player.setText("It is player "+ turn + "'s" + " turn");
+    }
+
+    /**
+     * Returns which player's turn it is.
+     *
+     * @return 1 if P1, 2 if P2
+     */
+    public int getTurn() {
+        return turn;
     }
 
     /**
