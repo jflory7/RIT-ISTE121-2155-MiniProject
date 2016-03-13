@@ -115,14 +115,14 @@ public class GameBoard extends JPanel implements ActionListener {
         // Checks for valid moves and counts how many valid moves there are
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                if(gamePieces[x][y].getStatus() < 2)
-                if (checkForMove(gamePieces[x][y])){
-                    gamePieces[x][y].setStatus(1);
-                    //validMoves++;
-                }else{
-                    gamePieces[x][y].setStatus(0);
+                if(gamePieces[x][y].getStatus() < 2) {
+                    if (checkForMove(gamePieces[x][y])) validMoves++;
+                    else gamePieces[x][y].setStatus(0);
                 }
             }
+        }
+        if(validMoves == 0){
+            System.out.println("End game");
         }
 /*
  _____ _               _____
