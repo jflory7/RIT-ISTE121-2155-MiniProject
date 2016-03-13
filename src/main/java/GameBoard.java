@@ -119,7 +119,17 @@ public class GameBoard extends JPanel implements ActionListener {
                 if (checkForMove(gamePieces[x][y])) validMoves++;
             }
         }
+/*
+ _____ _               _____
+/  ___| |             |____ |
+\ `--.| |_ ___ _ __       / /
+ `--. \ __/ _ \ '_ \      \ \
+/\__/ / ||  __/ |_) | .___/ /
+\____/ \__\___| .__/  \____/
+              | |
+              |_|
 
+ */
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
             JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
@@ -144,6 +154,20 @@ public class GameBoard extends JPanel implements ActionListener {
         score.updateScore(gamePieces, whoseTurn);
     }
 
+
+
+/*
+ _____ _               __
+/  ___| |             /  |
+\ `--.| |_ ___ _ __   `| |
+ `--. \ __/ _ \ '_ \   | |
+/\__/ / ||  __/ |_) | _| |_
+\____/ \__\___| .__/  \___/
+              | |
+              |_|
+*/
+
+
     /**
      * Checks to see if a move a player makes is valid or not by iterating through nearby pieces to see if one of its
      * own is around. If the move is valid, the piece's status is set to '1' to enable the glow effect. Returns true
@@ -155,29 +179,12 @@ public class GameBoard extends JPanel implements ActionListener {
     public boolean checkForMove(GamePiece rightHere) {
         //TODO This method needs further analysis and thought
 
+        // The logic that was here is invalid because you can still make moves on pieces that are not in the
+        // immediate proximity of the game piece. FML.
         if (score.getTurn() == 1) {
-            for (int i = rightHere.getXPos() - 1; i < i + 2; i++) {
-                for (int j = rightHere.getYPos() - 1; j < j + 2; j++) {
-                    if (i < 0) i = 0;
-                    else if (i > 7) i = 7;
-                    else if (j < 0) j = 0;
-                    else if (j > 7) j = 7;
 
-                    if (gamePieces[i][j].getStatus() == 2) {
-                        rightHere.setStatus(1);
-                        return true;
-                    }
-                }
-            }
         } else if (score.getTurn() == 2) {
-            for (int i = rightHere.getXPos() - 1; i < i + 2; i++) {
-                for (int j = rightHere.getYPos() - 1; j < j + 2; j++) {
-                    if (gamePieces[i][j].getStatus() == 3) {
-                        rightHere.setStatus(1);
-                        return true;
-                    }
-                }
-            }
+
         }
 
         return false;
@@ -208,8 +215,20 @@ public class GameBoard extends JPanel implements ActionListener {
          */
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
+/*
+ _____ _               _____
+/  ___| |             / __  \
+\ `--.| |_ ___ _ __   `' / /'
+ `--. \ __/ _ \ '_ \    / /
+/\__/ / ||  __/ |_) | ./ /___
+\____/ \__\___| .__/  \_____/
+              | |
+              |_|
+
+*/
+
         else if (status == 1) {
-            //TODO Logic to convert pieces goes here
+            //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
             if (score.getTurn() == 1) {
                 gamePieces[x][y].setStatus(2);
                 //TODO Change all neighboring pieces that are affected
