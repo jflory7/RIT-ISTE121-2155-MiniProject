@@ -115,8 +115,13 @@ public class GameBoard extends JPanel implements ActionListener {
         // Checks for valid moves and counts how many valid moves there are
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                checkForMove(gamePieces[x][y]);
-                if (checkForMove(gamePieces[x][y])) validMoves++;
+                if(gamePieces[x][y].getStatus() < 2)
+                if (checkForMove(gamePieces[x][y])){
+                    gamePieces[x][y].setStatus(1);
+                    //validMoves++;
+                }else{
+                    gamePieces[x][y].setStatus(0);
+                }
             }
         }
 /*
@@ -241,6 +246,8 @@ public class GameBoard extends JPanel implements ActionListener {
         while(true) {
             x+=plusX;
             y+=plusY;
+            if(x > 7 || x < 0) return 0;
+            if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
                 return counter;
@@ -249,7 +256,7 @@ public class GameBoard extends JPanel implements ActionListener {
             }else if(stat == 0){
                 return 0;
             }else{
-                System.out.print("Status error");
+                System.out.println("Status error " + x + ", " + y +  gamePieces[x][y].getStatus());
                 return 0;
             }
         }
