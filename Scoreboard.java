@@ -11,8 +11,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Scoreboard extends JPanel implements ActionListener{
+/**
+ * Scoreboard.java
+ *
+ * This class defines the behavior and logic for the scoreboard.
+ *
+ * @author Timothy Endersby
+ * @author Justin W. Flory
+ * @version 2016.02.15.v2
+ */
+public class Scoreboard extends JPanel implements ActionListener {
 
+    // Attributes
     private int p1Score;
     private int p2Score;
     private int turn;
@@ -21,44 +31,75 @@ public class Scoreboard extends JPanel implements ActionListener{
     private JLabel player;
     private JButton jbHelp;
 
-    public Scoreboard(){
+    /**
+     * Default constructor. Creates labels for player score and defines the organization of the panel, defines action
+     * listener for help button.
+     */
+    public Scoreboard() {
+
+        // Sets layout of scoreboard to use a grid
         setLayout(new GridLayout(20, 1));
-        jl1Score = new JLabel("Player one's score: " + p1Score, SwingConstants.CENTER);//"/t" is used to make the scoreboard wider
-        add(jl1Score);
-        jl2Score = new JLabel("Player two's score: " + p2Score, SwingConstants.CENTER);
-        add(jl2Score);
-        add(new JLabel("                                                       "));//blank line
-        player = new JLabel("It is player "+ turn + "'s" + " turn", SwingConstants.CENTER);
-        add(player);
-        add(new JLabel());//blank line
+
+        // Create labels for both player one and player two's scores, add to frame
+        jl1Score = new JLabel("Player One's score: " + p1Score, SwingConstants.CENTER);
+            add(jl1Score);
+        jl2Score = new JLabel("Player Two's score: " + p2Score, SwingConstants.CENTER);
+            add(jl2Score);
+
+        // Empty label, used as a spacer
+        add(new JLabel("                                                       "));
+
+        // Display which player's turn it is, add to JFrame
+        player = new JLabel("It is player "+ turn + "'s " + "turn.", SwingConstants.CENTER);
+            add(player);
+
+        // Empty label, used as a spacer
+        add(new JLabel());
+
+        // Add help button, displays information on gameplay
         jbHelp = new JButton("Help");
-        add(jbHelp);
-        jbHelp.addActionListener(this);
+            add(jbHelp);
+            jbHelp.addActionListener(this);
 
     }
 
-    public void updateScore(GamePiece[][] gamePieces, boolean _turn){
-        //Set whose turn it is
-        if(_turn) turn = 1;
+    /**
+     * Updates the score on the scoreboard based on most recent changes. Method is called in GameBoard whenever a new
+     * move is made to reflect the latest score changes on the board.
+     *
+     * @param gamePieces
+     * @param isTurn
+     */
+    public void updateScore(GamePiece[][] gamePieces, boolean isTurn) {
+
+        // Set whose turn it is
+        if (isTurn) turn = 1;
         else turn = 2;
 
-        //Reset the scores
+        // Reset scores
         p1Score = 0;
         p2Score = 0;
-        for(int x = 0; x < 8; x++){
-            for(int y = 0; y < 8; y++){
-                if(gamePieces[x][y].getStatus() == 2){
-                    p1Score++;
-                }else if(gamePieces[x][y].getStatus() == 3){
-                    p2Score++;
-                }
+
+        // Scans all pieces on the board, checks status; increments score based on piece status
+        for (int x = 0; x < 8; x++) {
+            for(int y = 0; y < 8; y++) {
+                if(gamePieces[x][y].getStatus() == 2) p1Score++;
+                else if(gamePieces[x][y].getStatus() == 3) p2Score++;
             }
         }
+
+        // Sets the score labels based on updated values
         jl1Score.setText("Player one's score: " + p1Score);
         jl2Score.setText("Player two's score: " + p2Score);
         player.setText("It is player "+ turn + "'s" + " turn");
     }
 
+    /**
+     * The action listener for the help button. Only purpose is to display game instructions and rules when the
+     * button is pressed.
+     *
+     * @param ae the action passed to the listener (assumed to be the help button in this class)
+     */
     public void actionPerformed(ActionEvent ae) {
         JOptionPane.showMessageDialog(null,
                 "How to Play Othello" +
