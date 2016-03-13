@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 /**
  * Othello.java
  *
@@ -22,80 +21,112 @@ import java.awt.event.KeyEvent;
  */
 public class Othello extends JFrame implements ActionListener {
 
-    public static final double gameVersion = 0.1;
+    // Constants
+    public final double GAME_VERSION = 0.1;
+
+    // Attributes
     private JMenuItem jmiReset;
     private JMenuItem jmiQuit;
     private JMenuItem jmiAbout;
     private GameBoard game;
 
+    /**
+     * Main method. Creates a new object of the class.
+     *
+     * @param args a String array of any arguments passed in the CLI
+     */
     public static void main(String[] args){
         new Othello();
     }
 
+    /**
+     * Default constructor.
+     *
+     * The purpose of this class is to build and create the "master" JFrame that the game will be played in. Basic
+     * work and customizations to the GUI are made in this class. The game-specific work is handled in its own
+     * respective classes (see GameBoard, GamePiece, Scoreboard).
+     */
     public Othello() {
+
+        // Create the JMenuBar and its menu items
         JMenuBar menuBar = new JMenuBar();
             JMenu jmGame = new JMenu("Game");
-            jmGame.setMnemonic(KeyEvent.VK_G);
+            jmGame.setMnemonic('G');
 
                 jmiReset = new JMenuItem("Reset Game");
-                jmiReset.setMnemonic(KeyEvent.VK_R);
+                jmiReset.setMnemonic('R');
                 jmGame.add(jmiReset);
 
                 jmiQuit = new JMenuItem("Quit");
-                jmiQuit.setMnemonic(KeyEvent.VK_Q);
+                jmiQuit.setMnemonic('Q');
                 jmGame.add(jmiQuit);
 
             menuBar.add(jmGame);
 
             JMenu jmHelp = new JMenu("Help");
-            jmHelp.setMnemonic(KeyEvent.VK_H);
+            jmHelp.setMnemonic('H');
 
                 jmiAbout = new JMenuItem("About");
-                jmiAbout.setMnemonic(KeyEvent.VK_A);
+                jmiAbout.setMnemonic('A');
                 jmHelp.add(jmiAbout);
 
             menuBar.add(jmHelp);
 
-        //TODO There is a method for adding JMenuBars to a JFrame without taking up a border pane
-        add(menuBar, BorderLayout.NORTH);
+        setJMenuBar(menuBar);
 
+        // Add action listeners to all JMenuItems (listener in this class file)
         jmiReset.addActionListener(this);
         jmiQuit.addActionListener(this);
         jmiAbout.addActionListener(this);
 
+        // Declare a new scoreboard object and add it to the frame
         Scoreboard score = new Scoreboard();
         add(score, BorderLayout.EAST);
 
+        // Declare a new GameBoard object and add it to the frame
         game = new GameBoard(score);
         add(game, BorderLayout.CENTER);
 
+        // Define misc. attributes of the frame and display frame
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Othello - Justin W. Flory, Timothy Endersby (ISTE-121)");
         pack();
-        setTitle("Othello");
         setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
 
-        while(true){
+        // Loop to listen for next turn by a player
+        while (true){
             game.turn(true);
             game.turn(false);
         }
     }
 
+    /**
+     * Action listener for JMenuItems in class constructor.
+     *
+     * @param ae the action passed to the listener
+     */
     public void actionPerformed(ActionEvent ae){
+
+        // Source of the action
         Object choice = ae.getSource();
 
-        if(choice == jmiReset){
-            game.reset();
-        }else if(choice == jmiQuit){
-            System.exit(0);
-        }else if(choice == jmiAbout){//We might want to move these instructions to help
+        /*
+         * Reset    =   Resets game board
+         * Quit     =   Exits program
+         * About    =   Shows information about the actual game
+         */
+        if (choice == jmiReset) game.reset();
+        else if (choice == jmiQuit) System.exit(0);
+        else if (choice == jmiAbout) {
             JOptionPane.showMessageDialog(null, "Othello" +
-                    "\nVersion " + gameVersion +
-                    "\nDate of final release here" +
-                    "\nDeveloped by Justin W. Flory and Timothy Endersby");
+                    "\nVersion " + GAME_VERSION +
+                    "\nReleased: 2016-03-14" +
+                    "\nDeveloped by: Justin W. Flory and Timothy Endersby");
         } else {
-            System.out.println("How did you get here with: " + ae);
+            System.out.println("ERROR. Your selection was invalid." +
+                    "\nSelection: " + ae);
         }
     }
 }
