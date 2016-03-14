@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.SwingConstants.CENTER;
+
 /**
  * GameBoard.java
  *
@@ -117,14 +119,14 @@ public class GameBoard extends JPanel implements ActionListener {
             score.updateScore(gamePieces, !whoseTurn);
             if(countValidMoves() == 0) {
                 String[] options = new String[]{"Play Again", "Quit"};
-                int response = JOptionPane.showOptionDialog(null, "There are no valid moves left\nPlayer " + score.getWinner() + " won",
+                int response = JOptionPane.showOptionDialog(null, new JLabel("<html>There are no valid moves left<br>Player " + score.getWinner() + " won</html>", JLabel.CENTER),
                         "Winner", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                         null, options, options[0]);
                 if (response == 0) reset();
                 else System.exit(0);
             }else{
                 score.updateScore(gamePieces, whoseTurn);
-                JOptionPane.showMessageDialog(null, "Player " + score.getTurn() + " can't make a move");
+                JOptionPane.showMessageDialog(null, new JLabel("Player " + score.getTurn() + " can't make a move", JLabel.CENTER));
             }
         }
 
