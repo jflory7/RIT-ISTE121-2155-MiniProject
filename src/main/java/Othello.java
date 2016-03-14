@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
 public class Othello extends JFrame implements ActionListener {
 
     // Constants
-    public final double GAME_VERSION = 0.1;
+    public final double GAME_VERSION = 1.0;
 
     // Attributes
     private JMenuItem jmiReset;
