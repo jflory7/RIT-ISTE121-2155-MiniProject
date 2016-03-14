@@ -103,6 +103,11 @@ public class Scoreboard extends JPanel implements ActionListener {
         return turn;
     }
 
+    public int getWinner(){
+        if(p1Score > p2Score) return 1;
+        return 2;
+    }
+
     /**
      * The action listener for the help button. Only purpose is to display game instructions and rules when the
      * button is pressed.

@@ -105,16 +105,24 @@ public class GameBoard extends JPanel implements ActionListener {
      */
     public void turn(boolean whoseTurn) {
 
-        // Local variables
-        int validMoves = 0;
-
         // Update the score before beginning turn and set turn to unfinished (in case hanging from previous runs)
         score.updateScore(gamePieces, whoseTurn);
         turnFinished = false;
 
         // Checks for valid moves and counts how many valid moves there are
         if(countValidMoves() == 0){
-            System.out.println("End game");
+            score.updateScore(gamePieces, !whoseTurn);
+            if(countValidMoves() == 0) {
+                String[] options = new String[]{"Play Again", "Quit"};
+                int response = JOptionPane.showOptionDialog(null, "There are no valid moves left\nPlayer " + score.getWinner() + " won",
+                        "Winner", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
+                if (response == 0) reset();
+                else System.exit(0);
+            }else{
+                score.updateScore(gamePieces, !whoseTurn);
+                JOptionPane.showMessageDialog(null, "Player " + score.getWinner() + " can't make a move");
+            }
         }
 
         /*
