@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * Othello.java
  *
- * Mini Project 1, ISTE-121.01: Othello
+ * Mini Project, ISTE-121.01: Othello
  *
  * @author Timothy Endersby
  * @author Justin W. Flory

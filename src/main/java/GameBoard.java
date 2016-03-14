@@ -11,8 +11,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static javax.swing.SwingConstants.CENTER;
-
 /**
  * GameBoard.java
  *
@@ -78,7 +76,7 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Resets game board to starting position. Invoked on first run or on player request in menu.
+     * Resets game board to starting position. Invoked on first run, end of first run, or on player request in menu.
      */
     public void reset() {
 
@@ -98,7 +96,7 @@ public class GameBoard extends JPanel implements ActionListener {
         // Updates the score to reflect the accurate number of pieces on the board
         score.updateScore(gamePieces, true);
 
-        //Set valid moves
+        // Set valid moves
         countValidMoves();
     }
 
@@ -131,11 +129,12 @@ public class GameBoard extends JPanel implements ActionListener {
         }
 
         /*
-         * //TODO Explain this block below in more English-y words
+         * Infinite loop that runs as long as the game is being played. The Thread.sleep is added to prevent CPU
+         * usage from getting so high (likely because of the constant requests for cycles being made to the processor).
          */
-        while (!turnFinished) { //wait until the turn is done - turn is set to true in the action listener
+        while (!turnFinished) {
             try {
-                Thread.sleep(100);//This is to reduce CPU usage - without it it uses a lot of CPU
+                Thread.sleep(100);
             } catch(InterruptedException e) {
                 System.out.println("Thread.sleep error!\n");
                 e.printStackTrace();
@@ -192,8 +191,8 @@ public class GameBoard extends JPanel implements ActionListener {
     }
 
     /**
-     * Action listener for buttons in game board. When a button is pushed, it prints the location of the button in
-     * console.
+     * Action listener for buttons in game board. Sets the status of buttons based on any captures by another player
+     * on their move.
      *
      * @param ae the action passed to the listener
      */
@@ -205,16 +204,13 @@ public class GameBoard extends JPanel implements ActionListener {
         int y = Integer.parseInt(choice.substring(1, 2));
         int status = gamePieces[x][y].getStatus();
 
-        // Prints button position to console
-        //System.out.println("(" + x + ", " + y + ")");
-
         /*
          * Checks status of button.
          *      0   =   Invalid button
          *      1   =   Valid move, change all applicable pieces
          *    2/3   =   Invalid move, piece already placed
          */
-        //if (status == 0) //System.out.println("Invalid selection. No move can be made here.");
+        if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
         if (status == 1) {
             if (score.getTurn() == 1) {
@@ -238,7 +234,7 @@ public class GameBoard extends JPanel implements ActionListener {
 
         }
 
-        //else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
+        else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
     }
 
     /**
@@ -251,35 +247,39 @@ public class GameBoard extends JPanel implements ActionListener {
      * @return >0 if valid move, 0 if invalid, <0 if unexpected error
      */
     private int checkForDirection(int plusX, int plusY, GamePiece rightHere, boolean setPieces) {
-        //int origX = rightHere.getXPos();
-        //int origY = rightHere.getYPos();
+
+        // Local variables
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
         int player = score.getTurn();
         int counter = 0;
         int status = 0;
+
+        // Set the status to reflect whichever player's turn it is
         if (score.getTurn() == 1) status = 2;
         else if (score.getTurn() == 2) status = 3;
+
+        // Count the number of pieces in the direction and stop when no more pieces are found
         while(true) {
             x+=plusX;
             y+=plusY;
             if(x > 7 || x < 0) return 0;
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
-            if(stat == player+1) {
-                //if(counter != 0) System.out.println("(" + x + ", " + y + ") (" + origX + ", " + origY + ") status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
+            if (stat == player+1) {
                 break;
-            }else if(stat == 0 || stat == 1){
+            } else if (stat == 0 || stat == 1) {
                 return 0;
-            }else if(stat == player+2 || stat == player){
+            } else if (stat == player+2 || stat == player) {
                 counter++;
-            }else{
+            } else {
                 System.out.println("Status error " + x + ", " + y +  gamePieces[x][y].getStatus());
                 return 0;
             }
         }
 
-        if(counter != 0 && setPieces){
+        // If counter isn't zero, change the status of all the pieces that are eligible for status change
+        if (counter != 0 && setPieces){
             x = rightHere.getXPos();
             y = rightHere.getYPos();
             for(int i = 0; i < counter; i++){
@@ -288,6 +288,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 gamePieces[x][y].setStatus(status);
             }
         }
+
         return counter;
     }
 
