@@ -118,15 +118,6 @@ public class GameBoard extends JPanel implements ActionListener {
         }
 
         /*
-        // If there are no more valid moves to be made, end turn and end game
-        if (validMoves == 0) {
-            JOptionPane.showMessageDialog(null, "There are no more moves on the board!");
-            turnFinished = true;
-
-            //TODO Game needs to be ended here
-        }
-
-        /*
          * //TODO Explain this block below in more English-y words
          */
         while (!turnFinished) { //wait until the turn is done - turn is set to true in the action listener
@@ -213,13 +204,10 @@ public class GameBoard extends JPanel implements ActionListener {
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
         else if (status == 1) {
-            //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
             if (score.getTurn() == 1) {
                 gamePieces[x][y].setStatus(2);
-                //TODO Change all neighboring pieces that are affected
             } else if (score.getTurn() == 2) {
                 gamePieces[x][y].setStatus(3);
-                //TODO Change all neighboring pieces that are affected
             }
 
             turnFinished = true;
@@ -233,6 +221,7 @@ public class GameBoard extends JPanel implements ActionListener {
             checkForDirection(-1, +1, rightHere, true);
             checkForDirection(-1, 0, rightHere, true);
             checkForDirection(-1, -1, rightHere, true);
+            checkForDirection(+1, -1, rightHere, true);
 
         }
 
