@@ -121,7 +121,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 else System.exit(0);
             }else{
                 score.updateScore(gamePieces, !whoseTurn);
-                JOptionPane.showMessageDialog(null, "Player " + score.getWinner() + " can't make a move");
+                JOptionPane.showMessageDialog(null, "Player " + score.getTurn() + " can't make a move");
             }
         }
 
