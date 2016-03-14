@@ -116,17 +116,7 @@ public class GameBoard extends JPanel implements ActionListener {
         if(countValidMoves() == 0){
             System.out.println("End game");
         }
-/*
- _____ _               _____
-/  ___| |             |____ |
-\ `--.| |_ ___ _ __       / /
- `--. \ __/ _ \ '_ \      \ \
-/\__/ / ||  __/ |_) | .___/ /
-\____/ \__\___| .__/  \____/
-              | |
-              |_|
 
- */
         /*
         // If there are no more valid moves to be made, end turn and end game
         if (validMoves == 0) {
@@ -222,18 +212,6 @@ public class GameBoard extends JPanel implements ActionListener {
          */
         if (status == 0) System.out.println("Invalid selection. No move can be made here.");
 
-/*
- _____ _               _____
-/  ___| |             / __  \
-\ `--.| |_ ___ _ __   `' / /'
- `--. \ __/ _ \ '_ \    / /
-/\__/ / ||  __/ |_) | ./ /___
-\____/ \__\___| .__/  \_____/
-              | |
-              |_|
-
-*/
-
         else if (status == 1) {
             //TODO Logic to convert pieces goes here [probably the hardest part of the entire project]
             if (score.getTurn() == 1) {
@@ -247,13 +225,14 @@ public class GameBoard extends JPanel implements ActionListener {
             turnFinished = true;
 
             GamePiece rightHere = gamePieces[x][y];
-            checkForDirection(-1, -1, rightHere, true);
+
             checkForDirection(0, -1, rightHere, true);
             checkForDirection(+1, 0, rightHere, true);
             checkForDirection(+1, +1, rightHere, true);
             checkForDirection(0, +1, rightHere, true);
             checkForDirection(-1, +1, rightHere, true);
             checkForDirection(-1, 0, rightHere, true);
+            checkForDirection(-1, -1, rightHere, true);
 
         }
 
@@ -270,6 +249,8 @@ public class GameBoard extends JPanel implements ActionListener {
      * @return >0 if valid move, 0 if invalid, <0 if unexpected error
      */
     private int checkForDirection(int plusX, int plusY, GamePiece rightHere, boolean setPieces) {
+        int origX = rightHere.getXPos();
+        int origY = rightHere.getYPos();
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
         int player = score.getTurn();
@@ -284,7 +265,7 @@ public class GameBoard extends JPanel implements ActionListener {
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
-                if(counter != 0) System.out.println(x + ", " + y + " status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
+                if(counter != 0) System.out.println("(" + x + ", " + y + ") (" + origX + ", " + origY + ") status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
                 break;
             }else if(stat == 0 || stat == 1){
                 return 0;
