@@ -95,6 +95,9 @@ public class GameBoard extends JPanel implements ActionListener {
 
         // Updates the score to reflect the accurate number of pieces on the board
         score.updateScore(gamePieces, true);
+
+        //Set valid moves
+        countValidMoves();
     }
 
     /**
@@ -120,7 +123,7 @@ public class GameBoard extends JPanel implements ActionListener {
                 if (response == 0) reset();
                 else System.exit(0);
             }else{
-                score.updateScore(gamePieces, !whoseTurn);
+                score.updateScore(gamePieces, whoseTurn);
                 JOptionPane.showMessageDialog(null, "Player " + score.getTurn() + " can't make a move");
             }
         }
@@ -201,7 +204,7 @@ public class GameBoard extends JPanel implements ActionListener {
         int status = gamePieces[x][y].getStatus();
 
         // Prints button position to console
-        System.out.println("(" + x + ", " + y + ")");
+        //System.out.println("(" + x + ", " + y + ")");
 
         /*
          * Checks status of button.
@@ -209,9 +212,9 @@ public class GameBoard extends JPanel implements ActionListener {
          *      1   =   Valid move, change all applicable pieces
          *    2/3   =   Invalid move, piece already placed
          */
-        if (status == 0) System.out.println("Invalid selection. No move can be made here.");
+        //if (status == 0) //System.out.println("Invalid selection. No move can be made here.");
 
-        else if (status == 1) {
+        if (status == 1) {
             if (score.getTurn() == 1) {
                 gamePieces[x][y].setStatus(2);
             } else if (score.getTurn() == 2) {
@@ -233,7 +236,7 @@ public class GameBoard extends JPanel implements ActionListener {
 
         }
 
-        else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
+        //else if (status == 2 || status == 3) System.out.println("Invalid selection. Piece already exists here.");
     }
 
     /**
@@ -246,8 +249,8 @@ public class GameBoard extends JPanel implements ActionListener {
      * @return >0 if valid move, 0 if invalid, <0 if unexpected error
      */
     private int checkForDirection(int plusX, int plusY, GamePiece rightHere, boolean setPieces) {
-        int origX = rightHere.getXPos();
-        int origY = rightHere.getYPos();
+        //int origX = rightHere.getXPos();
+        //int origY = rightHere.getYPos();
         int x = rightHere.getXPos();
         int y = rightHere.getYPos();
         int player = score.getTurn();
@@ -262,7 +265,7 @@ public class GameBoard extends JPanel implements ActionListener {
             if(y > 7 || y < 0) return 0;
             int stat = gamePieces[x][y].getStatus();
             if(stat == player+1) {
-                if(counter != 0) System.out.println("(" + x + ", " + y + ") (" + origX + ", " + origY + ") status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
+                //if(counter != 0) System.out.println("(" + x + ", " + y + ") (" + origX + ", " + origY + ") status: " + gamePieces[x][y].getStatus() + " x+ " + plusX + " y+ " + plusY + " counter: " + counter);
                 break;
             }else if(stat == 0 || stat == 1){
                 return 0;
